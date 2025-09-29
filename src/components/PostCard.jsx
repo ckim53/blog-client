@@ -1,5 +1,5 @@
-// src/components/PostCard.jsx
 import { Link } from 'react-router-dom';
+import './PostCard.css';
 
 function formatDate(iso) {
 	if (!iso) return '';
@@ -10,7 +10,7 @@ function formatDate(iso) {
 	});
 }
 
-export default function PostCard({ post }) {
+export function PostCard({ post }) {
 	const authorName =
 		post?.author?.displayName || post?.author?.username || 'Unknown';
 	const commentCount = Array.isArray(post?.comments) ? post.comments.length : 0;
@@ -20,26 +20,17 @@ export default function PostCard({ post }) {
 			: post?.content || '';
 
 	return (
-		<article
-			className="post-card"
-			style={{
-				border: '1px solid #eee',
-				borderRadius: 8,
-				padding: 16,
-				marginBottom: 12,
-			}}
-		>
-			<header style={{ marginBottom: 8 }}>
-				<h2 style={{ margin: 0 }}>
-					<Link to={`/posts/${post.id}`}>{post.title}</Link>
+		<article className="post-card">
+			<header className="post-card-header">
+				<h2 className="post-card-title">
+					<Link to={`/posts/${post.id}`}>{post.title || 'Untitled Post'}</Link>
 				</h2>
-				<small>
+				<small className="post-card-meta">
 					By {authorName} • {formatDate(post?.createdAt)} • {commentCount}{' '}
-					comment
-					{commentCount === 1 ? '' : 's'}
+					comment{commentCount === 1 ? '' : 's'}
 				</small>
 			</header>
-			<p style={{ margin: 0 }}>{preview}</p>
+			<p className="post-card-preview">{preview}</p>
 		</article>
 	);
 }

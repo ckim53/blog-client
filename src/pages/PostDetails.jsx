@@ -5,8 +5,18 @@ function PostDetails() {
 	const { id } = useParams();
 	const [post, setPost] = useState(null);
 	const [comments, setComments] = useState([]);
-	const [author, setAuthor] = useState('');
-	const [text, setText] = useState('');
+	const [content, setContent] = useState('');
+	const token = localStorage.getItem('token');
+
+	const fetchComments = async () => {
+		try {
+			const res = await fetch(`http://localhost:3000/posts/${id}/comments`);
+			const json = await res.json();
+			setComments(json.data || []);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	useEffect(() => {
 		fetch(`http://localhost:3000/posts/${id}`)
@@ -23,6 +33,49 @@ function PostDetails() {
 
 	if (!post) return <p>Loading...</p>;
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		if (!token) {
+			alert('You must be logged in to comment.');
+			return;
+		}
+
+		const authorId = localStorage.getItem('userId');
+
+		try {
+			console.log({ content, postId: Number(id), authorId: Number(authorId) });
+			const res = await fetch(`http://localhost:3000/posts/${id}/comments`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify({
+					content,
+					postId: Number(id),
+					authorId: Number(authorId),
+				}),
+			});
+
+			if (res.ok) {
+				await fetchComments();
+				setContent('');
+			} else {
+				const data = await res.json();
+
+				if (res.status === 400) {
+					alert('You must be logged in to comment on posts.');
+				} else {
+					alert('Failed to add comment');
+				}
+				setContent('');
+			}
+		} catch (err) {
+			alert('Server error. Try again later.');
+		}
+	};
+
 	return (
 		<div>
 			<h1>{post.title}</h1>
@@ -33,49 +86,26 @@ function PostDetails() {
 			) : (
 				comments.map((c) => (
 					<div key={c.id}>
-						<strong>{c.author}</strong>
-						<p>{c.text}</p>
+						<strong>{c.author.username}</strong>
+						<p>{c.content}</p>
 					</div>
 				))
 			)}
 			<h3>Add a Comment</h3>
-			<form
-				onSubmit={async (e) => {
-					e.preventDefault();
-
-					const res = await fetch(
-						`http://localhost:3000/posts/${id}/comments`,
-						{
-							method: 'POST',
-							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify({ author, text }),
-						}
-					);
-
-					if (res.ok) {
-						const newComment = await res.json();
-						setComments([...comments, newComment]);
-						setAuthor('');
-						setText('');
-					}
-				}}
-			>
-				<input
-					type="text"
-					placeholder="Your name"
-					value={author}
-					onChange={(e) => setAuthor(e.target.value)}
-					required
-				/>
-				<br></br>
-				<textarea
-					placeholder="Your comment"
-					value={text}
-					onChange={(e) => setText(e.target.value)}
-					required
-				/>
-				<button type="submit">Post Comment</button>
-			</form>
+			{token ? (
+				<form onSubmit={handleSubmit}>
+					<textarea
+						placeholder="Your comment"
+						value={content}
+						onChange={(e) => setContent(e.target.value)}
+						required
+					/>
+					<br />
+					<button type="submit">Post Comment</button>
+				</form>
+			) : (
+				<p style={{ color: 'gray' }}>Log in to add a comment.</p>
+			)}
 		</div>
 	);
 }

@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -19,9 +21,12 @@ export default function Login() {
 			const data = await res.json();
 
 			if (res.ok && data.ok) {
+				console.log(`userid: ${data.user.id}`);
+				localStorage.setItem('userId', data.user.id);
+				localStorage.setItem('username', data.user.username);
 				localStorage.setItem('token', data.token);
-				alert('Logged in!');
 				setError('');
+				navigate('/dashboard');
 			} else {
 				setError(data.error || 'Login failed. Please try again.');
 			}
