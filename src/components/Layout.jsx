@@ -5,12 +5,11 @@ export default function Layout() {
 	return (
 		<div className="layout">
 			<header className="header">
-				<h1 className="logo">My Blog</h1>
+				<Link to="/" id="home">
+					<h1 className="logo">My Blog</h1>
+				</Link>
 				<nav className="nav">
-					<Link to="/">Home</Link>
-					<Link to="/dashboard">Dashboard</Link>
 					<Link to="/log-in">Log In</Link>
-					<Link to="/sign-up">Sign Up</Link>
 				</nav>
 			</header>
 

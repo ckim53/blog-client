@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -19,9 +19,9 @@ export default function Login() {
 			});
 
 			const data = await res.json();
+			console.log("Login response:", data);
 
 			if (res.ok && data.ok) {
-				console.log(`userid: ${data.user.id}`);
 				localStorage.setItem('userId', data.user.id);
 				localStorage.setItem('username', data.user.username);
 				localStorage.setItem('token', data.token);
@@ -31,6 +31,7 @@ export default function Login() {
 				setError(data.error || 'Login failed. Please try again.');
 			}
 		} catch (err) {
+			console.log(err);
 			setError('Could not connect to server. Please try again later.');
 		}
 	};
@@ -38,6 +39,12 @@ export default function Login() {
 	return (
 		<form onSubmit={handleSubmit}>
 			<h1>Login</h1>
+			<h3>
+				Don't have an account?{' '}
+				<Link to="/sign-up">
+					<strong>Sign Up</strong>
+				</Link>
+			</h3>
 			{error && <p style={{ color: 'red' }}>{error}</p>}
 			<input
 				type="text"

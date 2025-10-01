@@ -15,10 +15,10 @@ function Home() {
 	return (
 		<div style={{ padding: '1rem' }}>
 			<nav style={{ marginBottom: '1rem' }}>
-				<Link to="/log-in">Log In</Link>
 				<br />
+				Want to share your thoughts?{'  '}
 				<Link to="/sign-up">
-					Want to share your thoughts? <strong>Join as a Contributor</strong>
+					<strong>Join as a Contributor</strong>
 				</Link>
 			</nav>
 

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 function PostDetails() {
 	const { id } = useParams();
+	const { isAuthenticated, loading } = useAuth();
 	const [post, setPost] = useState(null);
 	const [comments, setComments] = useState([]);
 	const [content, setContent] = useState('');
@@ -36,15 +38,7 @@ function PostDetails() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!token) {
-			alert('You must be logged in to comment.');
-			return;
-		}
-
-		const authorId = localStorage.getItem('userId');
-
 		try {
-			console.log({ content, postId: Number(id), authorId: Number(authorId) });
 			const res = await fetch(`http://localhost:3000/posts/${id}/comments`, {
 				method: 'POST',
 				headers: {
@@ -53,21 +47,27 @@ function PostDetails() {
 				},
 				body: JSON.stringify({
 					content,
-					postId: Number(id),
-					authorId: Number(authorId),
 				}),
 			});
+
+			let data;
+			const text = await res.text();
+			try {
+				data = JSON.parse(text);
+			} catch {
+				data = text;
+			}
 
 			if (res.ok) {
 				await fetchComments();
 				setContent('');
 			} else {
-				const data = await res.json();
-
-				if (res.status === 400) {
+				if (res.status === 400 || res.status === 401) {
 					alert('You must be logged in to comment on posts.');
 				} else {
-					alert('Failed to add comment');
+					alert(
+						`Failed to add comment. Status: ${res.status}, Error: ${data.error || data}`
+					);
 				}
 				setContent('');
 			}
@@ -80,7 +80,9 @@ function PostDetails() {
 		<div>
 			<h1>{post.title}</h1>
 			<p>{post.content}</p>
-			<h2>Comments</h2>
+			<h2>
+				{comments.length} {comments.length == 1 ? 'Comment' : 'Comments'}{' '}
+			</h2>
 			{comments && comments.length === 0 ? (
 				<p>No comments yet</p>
 			) : (
@@ -92,7 +94,7 @@ function PostDetails() {
 				))
 			)}
 			<h3>Add a Comment</h3>
-			{token ? (
+			{isAuthenticated ? (
 				<form onSubmit={handleSubmit}>
 					<textarea
 						placeholder="Your comment"
@@ -104,7 +106,9 @@ function PostDetails() {
 					<button type="submit">Post Comment</button>
 				</form>
 			) : (
-				<p style={{ color: 'gray' }}>Log in to add a comment.</p>
+				<p style={{ color: 'gray' }}>
+					<a href="/log-in">Log in</a> to add a comment.
+				</p>
 			)}
 		</div>
 	);
