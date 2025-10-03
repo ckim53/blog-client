@@ -42,3 +42,26 @@
 #home {
 	color: white;
 }
+
+.posts-grid {
+	column-count: 3;
+	column-gap: 1.5rem;
+}
+
+.posts-grid > * {
+	break-inside: avoid;
+	margin-bottom: 1.5rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+	.posts-grid {
+		column-count: 2;
+	}
+}
+
+@media (max-width: 600px) {
+	.posts-grid {
+		column-count: 1;
+	}
+}

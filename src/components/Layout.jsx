@@ -16,10 +16,6 @@ export default function Layout() {
 			<main className="main">
 				<Outlet />
 			</main>
-
-			<footer className="footer">
-				<p>© {new Date().getFullYear()} My Blog. All rights reserved.</p>
-			</footer>
 		</div>
 	);
 }

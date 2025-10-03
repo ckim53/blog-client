@@ -24,9 +24,11 @@ function Home() {
 
 			<h1>Welcome to the Blog</h1>
 
-			{posts.map((p) => (
-				<PostCard key={p.id} post={p} />
-			))}
+			<div className="posts-grid">
+				{posts.map((p) => (
+					<PostCard key={p.id} post={p} />
+				))}
+			</div>
 		</div>
 	);
 }

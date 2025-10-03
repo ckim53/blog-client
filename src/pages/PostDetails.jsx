@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth';
 
 function PostDetails() {
 	const { id } = useParams();
-	const { isAuthenticated, loading } = useAuth();
+	const { isAuthenticated } = useAuth();
 	const [post, setPost] = useState(null);
 	const [comments, setComments] = useState([]);
 	const [content, setContent] = useState('');
@@ -50,13 +50,8 @@ function PostDetails() {
 				}),
 			});
 
-			let data;
 			const text = await res.text();
-			try {
-				data = JSON.parse(text);
-			} catch {
-				data = text;
-			}
+			const data = text ? JSON.parse(text) : null;
 
 			if (res.ok) {
 				await fetchComments();

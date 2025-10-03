@@ -20,10 +20,14 @@ function Dashboard() {
 
 	return (
 		<div>
-			{posts.map((p) => (
-				<PostCard key={p.id} post={p} />
-			))}
-			<button id="logout" onClick={handleLogout}>Log Out</button>
+			<div className="posts-grid">
+				{posts.map((p) => (
+					<PostCard key={p.id} post={p} />
+				))}
+			</div>
+			<button id="logout" onClick={handleLogout}>
+				Log Out
+			</button>
 		</div>
 	);
 }
