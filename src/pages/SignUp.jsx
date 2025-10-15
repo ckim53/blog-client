@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import './home.css';
 export default function SignUp() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -38,7 +38,7 @@ export default function SignUp() {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<h1>Sign Up</h1>
+			<h1 id="sign-up">Sign Up</h1>
 			{error && <p style={{ color: 'red' }}>{error}</p>}
 			{success && <p style={{ color: 'green' }}>{success}</p>}
 			<input

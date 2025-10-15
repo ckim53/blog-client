@@ -16,7 +16,6 @@ function App() {
 					<Route path="/posts/:id" element={<PostDetails />} />
 					<Route path="/log-in" element={<Login />} />
 					<Route path="/sign-up" element={<SignUp />} />
-					<Route path="/dashboard" element={<Dashboard />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

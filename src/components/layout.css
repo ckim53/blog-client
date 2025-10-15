@@ -5,7 +5,7 @@
 }
 
 .header {
-	background: #3a90cd;
+	background: #0b1e36;
 	color: white;
 	padding: 1rem;
 	display: flex;
@@ -27,8 +27,9 @@
 .main {
 	flex: 1;
 	padding: 2rem;
-	max-width: 800px;
-	margin: 0 auto;
+	margin-left: 300px;
+	max-width: 100%;
+	background-color: #0b1e36;
 }
 
 .footer {
@@ -53,7 +54,6 @@
 	margin-bottom: 1.5rem;
 }
 
-/* Responsive tweaks */
 @media (max-width: 900px) {
 	.posts-grid {
 		column-count: 2;
@@ -64,4 +64,10 @@
 	.posts-grid {
 		column-count: 1;
 	}
+}
+
+#login,
+#logout {
+	margin-right: 30px;
+	font-size: 1.5rem;
 }

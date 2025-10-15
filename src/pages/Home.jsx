@@ -2,7 +2,7 @@ import { getPosts } from '../services/api';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PostCard } from '../components/PostCard';
-
+import './home.css';
 function Home() {
 	const [posts, setPosts] = useState([]);
 
@@ -13,17 +13,8 @@ function Home() {
 	}, []);
 
 	return (
-		<div style={{ padding: '1rem' }}>
-			<nav style={{ marginBottom: '1rem' }}>
-				<br />
-				Want to share your thoughts?{'  '}
-				<Link to="/sign-up">
-					<strong>Join as a Contributor</strong>
-				</Link>
-			</nav>
-
-			<h1>Welcome to the Blog</h1>
-
+		<div className="home" style={{ padding: '1rem' }}>
+			<nav id="description"></nav>
 			<div className="posts-grid">
 				{posts.map((p) => (
 					<PostCard key={p.id} post={p} />

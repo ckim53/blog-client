@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './home.css';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -19,14 +20,15 @@ export default function Login() {
 			});
 
 			const data = await res.json();
-			console.log("Login response:", data);
+			console.log('Login response:', data);
 
 			if (res.ok && data.ok) {
 				localStorage.setItem('userId', data.user.id);
 				localStorage.setItem('username', data.user.username);
 				localStorage.setItem('token', data.token);
 				setError('');
-				navigate('/dashboard');
+				window.dispatchEvent(new Event('authChange'));
+				navigate('/');
 			} else {
 				setError(data.error || 'Login failed. Please try again.');
 			}
@@ -38,13 +40,15 @@ export default function Login() {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<h1>Login</h1>
-			<h3>
-				Don't have an account?{' '}
-				<Link to="/sign-up">
-					<strong>Sign Up</strong>
-				</Link>
-			</h3>
+			<div className="log-in">
+				<h1>Login</h1>
+				<h3>
+					Don't have an account?
+					<Link to="/sign-up" style={{ marginLeft: '0.5rem' }}>
+						<strong id="sign-up">Sign Up</strong>
+					</Link>
+				</h3>
+			</div>
 			{error && <p style={{ color: 'red' }}>{error}</p>}
 			<input
 				type="text"

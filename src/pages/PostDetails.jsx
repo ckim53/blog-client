@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import {
+	Group,
+	Button,
+	Container,
+	Paper,
+	Text,
+	Title,
+	Stack,
+} from '@mantine/core';
 
 function PostDetails() {
 	const { id } = useParams();
@@ -72,39 +81,69 @@ function PostDetails() {
 	};
 
 	return (
-		<div>
-			<h1>{post.title}</h1>
-			<p>{post.content}</p>
-			<h2>
-				{comments.length} {comments.length == 1 ? 'Comment' : 'Comments'}{' '}
-			</h2>
-			{comments && comments.length === 0 ? (
-				<p>No comments yet</p>
-			) : (
-				comments.map((c) => (
-					<div key={c.id}>
-						<strong>{c.author.username}</strong>
-						<p>{c.content}</p>
-					</div>
-				))
-			)}
-			<h3>Add a Comment</h3>
-			{isAuthenticated ? (
-				<form onSubmit={handleSubmit}>
-					<textarea
-						placeholder="Your comment"
-						value={content}
-						onChange={(e) => setContent(e.target.value)}
-						required
-					/>
-					<br />
-					<button type="submit">Post Comment</button>
-				</form>
-			) : (
-				<p style={{ color: 'gray' }}>
-					<a href="/log-in">Log in</a> to add a comment.
-				</p>
-			)}
+		<div id="post-details">
+			<Container>
+				<Stack gap="lg">
+					<Paper radius="lg" shadow="xl" p="xl">
+						<Title color="black" order={2}>
+							{post.title}
+						</Title>
+						<Text my="xl">{post.content}</Text>
+
+						<Paper bg="gray.1" radius="lg" shadow="sm" p="xl">
+							<Title order={4}>
+								{comments.length}{' '}
+								{comments.length === 1 ? 'Comment' : 'Comments'}
+							</Title>
+
+							{comments.length === 0 ? (
+								<Text>No comments yet</Text>
+							) : (
+								<Paper bg="white" mt="md" shadow="sm" p="md" radius="md">
+									<Stack>
+										{comments.map((c) => (
+											<Text>
+												<Group gap="xl">
+													<Text fw={600}>{c.author.username}</Text>
+													<Text color="gray">
+														{new Date(c.createdAt).toLocaleString()}
+													</Text>
+												</Group>
+												<Text>{c.content}</Text>
+											</Text>
+										))}
+									</Stack>
+								</Paper>
+							)}
+						</Paper>
+
+						{isAuthenticated ? (
+							<Paper withBorder p="md" radius="md" mt="md">
+								<form onSubmit={handleSubmit}>
+									<textarea
+										placeholder="Add comment"
+										value={content}
+										onChange={(e) => setContent(e.target.value)}
+										required
+										style={{
+											width: '100%',
+											minHeight: '80px',
+											padding: '0.5rem',
+										}}
+									/>
+									<Button type="submit" size="md" radius="md" my="xs">
+										Post Comment
+									</Button>
+								</form>
+							</Paper>
+						) : (
+							<Text c="dimmed" mt="md">
+								<a href="/log-in">Log in</a> to add a comment.
+							</Text>
+						)}
+					</Paper>
+				</Stack>
+			</Container>
 		</div>
 	);
 }

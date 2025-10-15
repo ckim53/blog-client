@@ -20,7 +20,7 @@
 
 .post-card-title {
 	margin: 0;
-	font-size: 1.25rem;
+	font-size: 2rem;
 }
 
 .post-card-title a {
@@ -30,7 +30,6 @@
 
 .post-card-title a:hover {
 	color: #0077cc;
-	text-decoration: underline;
 }
 
 .post-card-meta {
@@ -41,5 +40,5 @@
 .post-card-preview {
 	margin: 0;
 	color: #333;
-	line-height: 1.5;
+	line-height: 3rem;
 }
