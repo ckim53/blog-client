@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import useAuth from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import './home.css';
+import { Button } from '@mantine/core';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+	const { login } = useAuth();
+
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -20,15 +24,12 @@ export default function Login() {
 			});
 
 			const data = await res.json();
-			console.log('Login response:', data);
 
 			if (res.ok && data.ok) {
-				localStorage.setItem('userId', data.user.id);
-				localStorage.setItem('username', data.user.username);
-				localStorage.setItem('token', data.token);
+				login(data);
 				setError('');
 				window.dispatchEvent(new Event('authChange'));
-				navigate('/');
+				navigate(`/`);
 			} else {
 				setError(data.error || 'Login failed. Please try again.');
 			}
@@ -64,7 +65,9 @@ export default function Login() {
 				onChange={(e) => setPassword(e.target.value)}
 			/>
 			<br />
-			<button type="submit">Log In</button>
+			<Button mt="sm" radius="md" type="submit">
+				Log In
+			</Button>
 		</form>
 	);
 }

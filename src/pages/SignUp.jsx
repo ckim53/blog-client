@@ -1,3 +1,4 @@
+import { Button } from '@mantine/core';
 import { useState } from 'react';
 import './home.css';
 export default function SignUp() {
@@ -62,7 +63,9 @@ export default function SignUp() {
 				onChange={(e) => setPasswordConfirmation(e.target.value)}
 			/>
 			<br />
-			<button type="submit">Sign Up</button>
+			<Button mt="sm" radius="md" type="submit">
+				Sign Up
+			</Button>
 		</form>
 	);
 }

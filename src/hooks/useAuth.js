@@ -10,7 +10,7 @@ export default function useAuth() {
 			const decoded = jwtDecode(token);
 			if (decoded.exp * 1000 > Date.now()) {
 				setIsAuthenticated(true);
-				setUser({ id: decoded.id, username: decoded.username });
+				setUser(decoded);
 			} else {
 				logout();
 			}
@@ -40,9 +40,11 @@ export default function useAuth() {
 		};
 	}, []);
 
-	const login = (token) => {
-		localStorage.setItem('token', token);
-		applyToken(token);
+	const login = (data) => {
+		localStorage.setItem('userId', data.user.id);
+		localStorage.setItem('username', data.user.username);
+		localStorage.setItem('token', data.token);
+		applyToken(data.token);
 		window.dispatchEvent(new Event('authChange'));
 	};
 

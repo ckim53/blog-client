@@ -4,9 +4,9 @@ import { TextInput } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import useAuth from '../../hooks/useAuth';
 
-export default function Sidebar({ isAuth, onLogout }) {
+export default function Sidebar() {
 	const navigate = useNavigate();
-	const { isAuthenticated, logout } = useAuth();
+	const { isAuthenticated, user, logout } = useAuth();
 
 	const handleLogout = () => {
 		logout();
@@ -15,9 +15,16 @@ export default function Sidebar({ isAuth, onLogout }) {
 
 	return (
 		<div className="sidebar">
-			<Link className="logo" to="/">
-				My Blog
-			</Link>
+			{isAuthenticated ? (
+				<Link className="logo" to={'/'}>
+					My Blog
+				</Link>
+			) : (
+				<Link className="logo" to="/">
+					My Blog
+				</Link>
+			)}
+
 			<nav>
 				<TextInput
 					placeholder="Search..."

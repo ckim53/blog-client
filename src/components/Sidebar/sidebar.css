@@ -6,7 +6,7 @@
 	height: 100vh;
 	background: #0b1e36;
 	color: white;
-	padding: 1.5rem 1rem;
+	padding: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -20,8 +20,7 @@
 }
 
 .logo:hover {
-	color: lightblue;
-	background-color: #0b1e36;
+	color: #3a7bd5;
 }
 
 .sidebar nav ul {
@@ -47,6 +46,11 @@
 	border: none;
 }
 
-.sidebar nav a:hover, .sidebar nav button:hover {
-	color: lightblue;
+.sidebar nav button:hover {
+	cursor: pointer;
+}
+
+.sidebar nav a:hover,
+.sidebar nav button:hover {
+	color: #3a7bd5;
 }
