@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import useAuth from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
-import './home.css';
-import { Button } from '@mantine/core';
+
+import { Button, Text, Group, Title, Input } from '@mantine/core';
+import { useAuth } from '../auth/AuthProvider';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -41,33 +41,60 @@ export default function Login() {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<div className="log-in">
-				<h1>Login</h1>
-				<h3>
-					Don't have an account?
-					<Link to="/sign-up" style={{ marginLeft: '0.5rem' }}>
-						<strong id="sign-up">Sign Up</strong>
-					</Link>
-				</h3>
-			</div>
-			{error && <p style={{ color: 'red' }}>{error}</p>}
-			<input
-				type="text"
-				placeholder="Username"
-				value={username}
-				onChange={(e) => setUsername(e.target.value)}
-			/>
-			<br />
-			<input
-				type="password"
-				placeholder="Password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-			/>
-			<br />
-			<Button mt="sm" radius="md" type="submit">
-				Log In
-			</Button>
+			<Text component="div" c="white" td="none" ta="center">
+				<Title order={1}>Login</Title>
+				<Title order={2}>
+					<Group my="10px" justify="center">
+						<Text size="lg">Don't have an account?</Text>
+						<Text
+							size="lg"
+							component={Link}
+							to="/sign-up"
+							style={{
+								color: 'white',
+								textDecoration: 'none',
+								fontWeight: 'bold',
+							}}
+						>
+							Sign Up
+						</Text>
+					</Group>
+				</Title>
+				{error &&
+					error.split(';').map((msg, i) => (
+						<p key={i} style={{ color: 'red', margin: 0 }}>
+							{msg.trim()}
+						</p>
+					))}
+				<Input
+					my="lg"
+					size="md"
+					radius="md"
+					type="text"
+					placeholder="Username"
+					value={username}
+					onChange={(e) => setUsername(e.target.value)}
+				></Input>
+				<Input
+					my="lg"
+					size="md"
+					radius="md"
+					type="password"
+					placeholder="Password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+				></Input>
+				<Button
+					type="submit"
+					style={{ backgroundColor: '#2e949f' }}
+					size="lg"
+					p="sm"
+					radius="md"
+					mt="md"
+				>
+					Log In
+				</Button>
+			</Text>
 		</form>
 	);
 }

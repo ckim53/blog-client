@@ -1,0 +1,4 @@
+.post-card:hover {
+	transform: translateY(-5px);
+	background-color: #ebebeb;
+}
