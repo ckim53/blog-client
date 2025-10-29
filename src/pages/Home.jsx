@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
 	const [posts, setPosts] = useState([]);
-	const { isAuthenticated, user, logout, login } = useAuth();
+	const { isAuthenticated, user, logout } = useAuth();
 	const apiFetch = useApiFetch();
 	const navigate = useNavigate();
 
@@ -50,11 +50,12 @@ function Home() {
 				<IconCoffee
 					style={{
 						marginBottom: '25px',
-						color: 'white',
+						color: '#BF94E4',
 					}}
 					size={45}
 				></IconCoffee>
 			</Group>
+
 			<Button
 				onClick={handleLog}
 				color="white"
