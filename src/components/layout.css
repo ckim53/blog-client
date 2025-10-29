@@ -30,11 +30,13 @@
 @media (max-width: 900px) {
 	.posts-grid {
 		column-count: 2;
+		padding: 0 1rem;
 	}
 }
 
 @media (max-width: 600px) {
 	.posts-grid {
 		column-count: 1;
+		padding: 0 0.75rem;
 	}
 }

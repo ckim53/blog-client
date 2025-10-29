@@ -87,7 +87,7 @@ function PostDetails() {
 	};
 
 	return (
-		<Paper radius="lg" shadow="xl" style={{ padding: '50px' }}>
+		<Paper radius="lg" shadow="xl" p={50} w="100%">
 			<Group
 				justify="space-between"
 				align="flex-start"
