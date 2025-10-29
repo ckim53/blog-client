@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function PostCard({ post }) {
 	const navigate = useNavigate();
-	const authorName = post?.author?.username || 'Unknown';
+	const authorName = post?.author?.displayName || 'Unknown';
 	const commentCount = Array.isArray(post?.comments) ? post.comments.length : 0;
 	const preview =
 		(post?.content || '').length > 120
@@ -38,7 +38,7 @@ export function PostCard({ post }) {
 			}}
 		>
 			<Box mb={8}>
-				<Stack  wrap="nowrap">
+				<Stack wrap="nowrap">
 					<Title order={1} style={{ overflowWrap: 'anywhere' }}>
 						{post.title}
 					</Title>

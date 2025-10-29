@@ -1,7 +1,5 @@
 .layout,
 .details-layout {
-	display: flex;
-	flex-direction: column;
 	min-height: 100vh;
 	background: #0b1e36;
 	overflow-y: auto;
