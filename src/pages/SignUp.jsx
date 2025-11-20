@@ -1,4 +1,4 @@
-import { Button, Box, Title, Input } from '@mantine/core';
+import { Button, Box, Title, Input, Group, Text } from '@mantine/core';
 import { useState } from 'react';
 import { API_URL } from '../services/api';
 import { Link } from 'react-router-dom';
@@ -41,9 +41,28 @@ export default function SignUp() {
 	return (
 		<Box ta="center" mt={30}>
 			<form onSubmit={handleSubmit}>
-				<Title mb="20px" order={1} c="white" td="none">
-					Sign Up
-				</Title>
+				<Text c="white" td="none">
+					<Title mb="20px" order={1}>
+						Sign Up
+					</Title>
+					<Title order={2}>
+						<Group my="10px" justify="center">
+							<Text size="lg">Already have an account?</Text>
+							<Text
+								size="lg"
+								component={Link}
+								to="/log-in"
+								style={{
+									color: 'white',
+									textDecoration: 'none',
+									fontWeight: 'bold',
+								}}
+							>
+								Log In
+							</Text>
+						</Group>
+					</Title>
+				</Text>
 				{error &&
 					error.split(';').map((msg, i) => (
 						<p key={i} style={{ color: 'red', margin: 0 }}>

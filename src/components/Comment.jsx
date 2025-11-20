@@ -7,7 +7,7 @@ export default function Comment({ comment, edit = false, handleDelete }) {
 		<Group justify={'space-between'}>
 			<Text key={comment.id} component="div">
 				<Group gap="xl">
-					<Text fw={700}>{comment.author.username}</Text>
+					<Text fw={700}>{comment.author.displayName}</Text>
 					<Text size="md" color="gray">
 						{new Date(comment.createdAt).toLocaleString()}
 					</Text>
