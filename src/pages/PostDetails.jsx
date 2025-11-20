@@ -123,7 +123,7 @@ function PostDetails() {
 						{post.title}
 					</Title>
 					<Text color="gray" size="md">
-						By {post?.author?.username} • {formatDate(post?.createdAt)}
+						By {post?.author?.displayName} • {formatDate(post?.createdAt)}
 					</Text>
 				</Stack>
 			</Group>
