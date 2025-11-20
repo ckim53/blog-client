@@ -5,7 +5,16 @@ import Comment from '../components/Comment';
 import { useApiFetch } from '../services/apiFetch';
 import { API_URL } from '../services/api';
 
-import { Group, Button, Paper, Text, Title, Stack } from '@mantine/core';
+import {
+	Group,
+	Button,
+	Paper,
+	Text,
+	Title,
+	Stack,
+	Loader,
+	Center,
+} from '@mantine/core';
 
 function PostDetails() {
 	const { id } = useParams();
@@ -85,6 +94,14 @@ function PostDetails() {
 			alert('Server error. Try again later.');
 		}
 	};
+
+	if (!post) {
+		return (
+			<Center mt={200}>
+				<Loader color="blue" />
+			</Center>
+		);
+	}
 
 	return (
 		<Paper radius="lg" shadow="xl" p={50} w="100%">

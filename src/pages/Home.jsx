@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import PostCard from '../components/PostCard';
-import { Text, Box, Button, Group } from '@mantine/core';
+import { Text, Box, Button, Group, Loader, Center } from '@mantine/core';
 import { useAuth } from '../auth/AuthProvider';
 import { useApiFetch } from '../services/apiFetch';
 import { API_URL } from '../services/api';
@@ -10,9 +10,15 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
 	const [posts, setPosts] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const { isAuthenticated, user, logout } = useAuth();
 	const apiFetch = useApiFetch();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const timer = setTimeout(() => setLoading(false), 300);
+		return () => clearTimeout(timer);
+	}, []);
 
 	useEffect(() => {
 		apiFetch(`${API_URL}/posts`, {
@@ -33,6 +39,14 @@ function Home() {
 			navigate('/log-in');
 		}
 	};
+
+	if (loading) {
+		return (
+			<Center mt={200}>
+				<Loader color="blue" />
+			</Center>
+		);
+	}
 
 	return (
 		<Box px={50}>
