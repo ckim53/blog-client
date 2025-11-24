@@ -90,6 +90,7 @@ function Home() {
 			>
 				{isAuthenticated ? 'Log Out' : 'Log In'}
 			</Button>
+
 			<Box className="posts-grid">
 				{posts.map((p) => (
 					<PostCard key={p.id} post={p} />

@@ -12,28 +12,6 @@ export default function Login() {
 
 	const navigate = useNavigate();
 
-	const handleDemo = async (e) => {
-		e.preventDefault();
-
-		try {
-			const res = await fetch(`${API_URL}/demo`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ guest: true }),
-			});
-
-			const data = await res.json();
-
-			if (res.ok && data.ok) {
-				login(data);
-				window.dispatchEvent(new Event('authChange'));
-				navigate(`/`);
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError('');
@@ -64,40 +42,11 @@ export default function Login() {
 	return (
 		<Box ta="center" mt={30}>
 			<form onSubmit={handleSubmit}>
-				<Box c="white" td="none">
+				<Text c="white" td="none">
 					<Title order={1}>Login</Title>
-					{/* <Title order={2}>
-						<Group my="10px" justify="center">
-							<Text size="lg">Don't have an account?</Text>
-							<Text
-								size="lg"
-								component={Link}
-								to="/sign-up"
-								style={{
-									color: 'white',
-									textDecoration: 'none',
-									fontWeight: 'bold',
-								}}
-							>
-								Sign Up or
-							</Text>
-							<Text
-								size="lg"
-								style={{
-									color: 'white',
-									textDecoration: 'none',
-									fontWeight: 'bold',
-								}}
-							>
-								Log In as Guest
-							</Text>
-						</Group>
-					</Title> */}
 					<Title order={2}>
 						<Group my="10px" justify="center">
 							<Text size="lg">Don't have an account?</Text>
-						</Group>
-						<Group>
 							<Text
 								size="lg"
 								component={Link}
@@ -106,34 +55,12 @@ export default function Login() {
 									color: 'white',
 									textDecoration: 'none',
 									fontWeight: 'bold',
-									transition: 'color 0.2s',
 								}}
-								onMouseEnter={(e) => (e.target.style.color = '#b3e5fc')}
-								onMouseLeave={(e) => (e.target.style.color = 'white')}
 							>
 								Sign Up
 							</Text>
-							<Text size="lg">or</Text>
-							<Text
-								size="lg"
-								component={Link}
-								to="/guest-login"
-								style={{
-									color: 'white',
-									textDecoration: 'none',
-									fontWeight: 'bold',
-									marginLeft: '6px',
-									transition: 'color 0.2s',
-								}}
-								onMouseEnter={(e) => (e.target.style.color = '#b3e5fc')}
-								onMouseLeave={(e) => (e.target.style.color = 'white')}
-								onClick={handleDemo}
-							>
-								Log In as Guest
-							</Text>
 						</Group>
 					</Title>
-
 					{error &&
 						error.split(';').map((msg, i) => (
 							<p key={i} style={{ color: 'red', margin: 0 }}>
@@ -168,7 +95,7 @@ export default function Login() {
 					>
 						Log In
 					</Button>
-				</Box>
+				</Text>
 			</form>
 			<Title
 				td="none"
