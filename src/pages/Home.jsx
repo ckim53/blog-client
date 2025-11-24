@@ -41,7 +41,7 @@ function Home() {
 		}
 	};
 
-	if (loading) {
+	if (loading || !user) {
 		return (
 			<Center mt={200}>
 				<Loader color="blue" />
