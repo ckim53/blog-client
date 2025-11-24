@@ -5,8 +5,9 @@ import { Text, Box, Button, Group, Loader, Center } from '@mantine/core';
 import { useAuth } from '../auth/AuthProvider';
 import { useApiFetch } from '../services/apiFetch';
 import { API_URL } from '../services/api';
-import { IconCoffee } from '@tabler/icons-react';
+import { IconCoffee, IconExternalLink } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Home() {
 	const [posts, setPosts] = useState([]);
@@ -68,8 +69,17 @@ function Home() {
 					}}
 					size={45}
 				></IconCoffee>
+				<Button
+					component={Link}
+					to="https://coffee-break-cms.up.railway.app"
+					radius="md"
+					size="md"
+					mb="md"
+					mx="lg"
+				>
+					Manage Posts <IconExternalLink style={{ marginLeft: '5px' }} />
+				</Button>
 			</Group>
-
 			<Button
 				onClick={handleLog}
 				color="white"
