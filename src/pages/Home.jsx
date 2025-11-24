@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 function Home() {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const { isAuthenticated, user, logout } = useAuth();
+	const { isAuthenticated, user, logout, loadingAuth } = useAuth();
 	const apiFetch = useApiFetch();
 	const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ function Home() {
 		}
 	};
 
-	if (loading || !user) {
+	if (loading || loadingAuth || !user) {
 		return (
 			<Center mt={200}>
 				<Loader color="blue" />
