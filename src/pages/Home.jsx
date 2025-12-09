@@ -15,6 +15,7 @@ function Home() {
 	const { isAuthenticated, user, logout, loadingAuth } = useAuth();
 	const apiFetch = useApiFetch();
 	const navigate = useNavigate();
+	console.log("API URL:", import.meta.env.VITE_API_URL);
 
 	useEffect(() => {
 		const timer = setTimeout(() => setLoading(false), 300);
