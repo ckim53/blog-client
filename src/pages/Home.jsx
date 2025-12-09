@@ -31,7 +31,6 @@ function Home() {
 				console.log('POSTS RESPONSE:', json);
 				setPosts(json.data);
 			})
-			.then((json) => setPosts(json.data))
 			.catch((err) => console.error(err));
 	}, []);
 
