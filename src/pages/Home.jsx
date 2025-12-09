@@ -45,7 +45,7 @@ function Home() {
 		}
 	};
 
-	if (loading || loadingAuth || !user) {
+	if (loading || loadingAuth) {
 		return (
 			<Center mt={200}>
 				<Loader color="blue" />
