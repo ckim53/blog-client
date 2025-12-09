@@ -45,14 +45,6 @@ function Home() {
 		}
 	};
 
-	if (loading) {
-		return (
-			<Center mt={200}>
-				<Loader color="blue" />
-			</Center>
-		);
-	}
-
 	return (
 		<Box px={50}>
 			<Group>
