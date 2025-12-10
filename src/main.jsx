@@ -6,7 +6,7 @@ import '@mantine/core/styles.css';
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
-		<MantineProvider withGlobalStyles withNormalizeCSS forceColorScheme="light">
+		<MantineProvider withGlobalStyles withNormalizeCSS>
 			<App />
 		</MantineProvider>
 	</StrictMode>
