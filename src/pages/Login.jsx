@@ -28,7 +28,6 @@ export default function Login() {
 			if (res.ok && data.ok) {
 				login(data);
 				setError('');
-				window.dispatchEvent(new Event('authChange'));
 				navigate(`/`);
 			} else {
 				setError(data.error || 'Login failed. Please try again.');
